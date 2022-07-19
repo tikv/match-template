@@ -5,8 +5,8 @@ edition = "2018"
 description = "match-template is a procedural macro that generates repeated match arms by pattern."
 license = "Apache-2.0"
 repository = "https://github.com/tikv/match-template"
-keywords = ["macro", "pattern match", "tikv"]
-categories = ["macro", "procedural macro"]
+keywords = ["macro", "pattern-match", "tikv"]
+categories = ["macro", "procedural-macro"]
 
 [lib]
 proc-macro = true
