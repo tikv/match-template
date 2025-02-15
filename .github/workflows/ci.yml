@@ -13,7 +13,7 @@ jobs:
     name: Check license header
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: apache/skywalking-eyes/header@v0.4.0
         with:
           config: tools/ci/licenserc.yml
@@ -23,30 +23,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - uses: Swatinem/rust-cache@v1
-
-    - name: Cargo build
-      uses: actions-rs/cargo@v1
+    - uses: actions/checkout@v4
+    - uses: Swatinem/rust-cache@v2
+    - name: Install toolchain
+      uses: dtolnay/rust-toolchain@master
       with:
-        command: build
-
-    - name: Check clippy
-      uses: actions-rs/cargo@v1
-      with:
-        command: clippy
-        args: --workspace --tests --all-features -- -D warnings
-
-    - name: Check format
-      uses: actions-rs/cargo@v1
-      with:
-        command: fmt
-        args: --all -- --check
-
-    - name: Cargo test
-      uses: actions-rs/cargo@v1
-      with:
-        command: test
-        args: --workspace
+        toolchain: stable
+    - run: cargo build --workspace --all-features
+    - run: cargo clippy --workspace --tests --all-features -- -D warnings
+    - run: cargo fmt --all -- --check
+    - run: cargo test --workspace --all-features
