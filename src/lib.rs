@@ -25,7 +25,7 @@ use syn::{
 
 /// This crate provides a macro that can be used to append a match expression
 /// with multiple arms, where the tokens in the first arm, as a template, can be
-/// substituted and the template arm will be expanded into multiple arms.
+/// subsitituted and the template arm will be expanded into multiple arms.
 ///
 /// For example, the following code
 ///
@@ -190,7 +190,7 @@ fn replace_in_token_stream<T: ToTokens + Parse>(
         })
         .collect();
 
-    parse2(tokens).unwrap()
+    syn::parse2(tokens).unwrap()
 }
 
 #[cfg(test)]
@@ -217,7 +217,7 @@ mod tests {
         "#;
         let expect_output_stream: TokenStream = expect_output.parse().unwrap();
 
-        let mt: MatchTemplate = parse_str(input).unwrap();
+        let mt: MatchTemplate = syn::parse_str(input).unwrap();
         let output = mt.expand();
         assert_eq!(output.to_string(), expect_output_stream.to_string());
     }
@@ -241,7 +241,7 @@ mod tests {
         "#;
         let expect_output_stream: TokenStream = expect_output.parse().unwrap();
 
-        let mt: MatchTemplate = parse_str(input).unwrap();
+        let mt: MatchTemplate = syn::parse_str(input).unwrap();
         let output = mt.expand();
         assert_eq!(output.to_string(), expect_output_stream.to_string());
     }
@@ -266,7 +266,7 @@ mod tests {
         "#;
         let expect_output_stream: TokenStream = expect_output.parse().unwrap();
 
-        let mt: MatchTemplate = parse_str(input).unwrap();
+        let mt: MatchTemplate = syn::parse_str(input).unwrap();
         let output = mt.expand();
         assert_eq!(output.to_string(), expect_output_stream.to_string());
     }
